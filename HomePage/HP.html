@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MTG AI - Home</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="user-info" id="userInfo">
+                <button class="btn btn-small" id="loginBtn">Login</button>
+                <button class="btn btn-small" id="signupBtn">Sign Up</button>
+            </div>
+            <h1 class="title">Magic: The Gathering AI</h1>
+            <p class="subtitle">Play Against Intelligent AI Opponents</p>
+        </header>
+
+        <main class="main-content">
+            <div class="card-grid">
+                <div class="feature-card">
+                    <div class="icon">🃏</div>
+                    <h2>Build Your Deck</h2>
+                    <p>Create powerful decks with thousands of cards</p>
+                    <a href="../DeckBuilding/Deckbuilding.html" class="btn">Deck Builder</a>
+                </div>
+
+                <div class="feature-card">
+                    <div class="icon">⚔️</div>
+                    <h2>Play vs AI</h2>
+                    <p>Challenge AI opponents with adaptive strategies</p>
+                    <a href="../Main/Main.html" class="btn">Start Game</a>
+                </div>
+
+                <div class="feature-card">
+                    <div class="icon">📊</div>
+                    <h2>Your Stats</h2>
+                    <p>Track wins, losses, and deck performance</p>
+                    <button class="btn" id="statsBtn">View Stats</button>
+                </div>
+            </div>
+
+            <section class="info-section">
+                <h2>How to Play</h2>
+                <div class="steps">
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <p>Build or select a deck from the Deck Builder</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <p>Choose your AI opponent difficulty</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <p>Battle and master your strategies!</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>&copy; 2024 MTG AI | Not affiliated with Wizards of the Coast</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

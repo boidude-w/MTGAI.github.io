@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MTG AI - Deck Builder</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="title">Deck Builder</h1>
+            <p class="subtitle">Create Your Perfect Deck</p>
+            <a href="../HomePage/HP.html" class="btn btn-back">← Back to Home</a>
+        </header>
+
+        <main class="main-content">
+            <div class="deck-builder-layout">
+                <!-- Left Panel: Card Search -->
+                <div class="card-search-panel">
+                    <h2>Card Collection</h2>
+                    
+                    <div class="search-filters">
+                        <input type="text" id="cardSearch" placeholder="Search cards..." class="search-input">
+                        
+                        <select id="colorFilter" class="filter-select">
+                            <option value="">All Colors</option>
+                            <option value="White">White</option>
+                            <option value="Blue">Blue</option>
+                            <option value="Black">Black</option>
+                            <option value="Red">Red</option>
+                            <option value="Green">Green</option>
+                            <option value="Colorless">Colorless</option>
+                        </select>
+                        
+                        <select id="typeFilter" class="filter-select">
+                            <option value="">All Types</option>
+                            <option value="Creature">Creature</option>
+                            <option value="Instant">Instant</option>
+                            <option value="Sorcery">Sorcery</option>
+                            <option value="Enchantment">Enchantment</option>
+                            <option value="Artifact">Artifact</option>
+                            <option value="Planeswalker">Planeswalker</option>
+                            <option value="Land">Land</option>
+                        </select>
+                        
+                        <select id="manaFilter" class="filter-select">
+                            <option value="">All Mana Costs</option>
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6+">6+</option>
+                        </select>
+                    </div>
+                    
+                    <div class="card-list" id="cardList">
+                        <!-- Cards will be dynamically added here -->
+                    </div>
+                </div>
+
+                <!-- Right Panel: Current Deck -->
+                <div class="deck-panel">
+                    <div class="deck-header">
+                        <h2>Current Deck</h2>
+                        <div class="deck-stats">
+                            <span id="deckCount">0</span> / 60 cards
+                        </div>
+                    </div>
+                    
+                    <div class="deck-actions">
+                        <input type="text" id="deckName" placeholder="Deck Name" class="deck-name-input">
+                        <button class="btn btn-analyze" id="analyzeBtn">🤖 AI Analysis</button>
+                        <button class="btn btn-analyze" id="buildDeckBtn">🚀 Build Deck with AI</button>
+                        <button class="btn btn-save" id="saveDeckBtn">💾 Save Deck</button>
+                        <button class="btn btn-load" id="loadDeckBtn">📂 Load Deck</button>
+                        <button class="btn btn-clear" id="clearDeckBtn">🗑️ Clear Deck</button>
+                    </div>
+                    
+                    <div class="deck-breakdown">
+                        <div class="breakdown-item">
+                            <span>Creatures:</span>
+                            <span id="creatureCount">0</span>
+                        </div>
+                        <div class="breakdown-item">
+                            <span>Spells:</span>
+                            <span id="spellCount">0</span>
+                        </div>
+                        <div class="breakdown-item">
+                            <span>Lands:</span>
+                            <span id="landCount">0</span>
+                        </div>
+                        <div class="breakdown-item">
+                            <span>Other:</span>
+                            <span id="otherCount">0</span>
+                        </div>
+                    </div>
+                    
+                    <div class="current-deck" id="currentDeck">
+                        <!-- Deck cards will be displayed here -->
+                    </div>
+                    
+                    <div class="saved-decks">
+                        <h3>Saved Decks</h3>
+                        <div id="savedDecksList"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
