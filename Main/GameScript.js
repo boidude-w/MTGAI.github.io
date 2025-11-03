@@ -307,6 +307,69 @@ function startGame() {
     addLog('Game started! You go first.');
     addLog('Draw your opening hand of 7 cards.');
     
+    // Start player's turn
+    startPlayerTurn();
+}
+
+function startGame() {
+    // Get selected deck
+    const selectedDeck = document.querySelector('.deck-option.selected');
+    if (!selectedDeck) {
+        alert('Please select a deck!');
+        return;
+    }
+    
+    const deckName = selectedDeck.dataset.deckName;
+    
+    // Get difficulty
+    const difficulty = document.querySelector('input[name="difficulty"]:checked').value;
+    gameState.difficulty = difficulty;
+    
+    // Load player's deck
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const userId = currentUser ? currentUser.id : 'guest';
+    const decks = JSON.parse(localStorage.getItem('mtgDecks')) || {};
+    const userDecks = decks[userId] || [];
+    const playerDeck = userDecks.find(d => d.name === deckName);
+    
+    if (!playerDeck || !playerDeck.cards || playerDeck.cards.length === 0) {
+        alert('Invalid deck selected!');
+        return;
+    }
+    
+    // Expand deck cards (convert counts to individual cards)
+    gameState.player.library = expandDeck(playerDeck.cards);
+    
+    // Generate AI deck
+    gameState.ai.library = generateAIDeck(difficulty);
+    
+    // Shuffle decks
+    shuffleDeck(gameState.player.library);
+    shuffleDeck(gameState.ai.library);
+    
+    // Draw opening hands
+    for (let i = 0; i < 7; i++) {
+        drawCardFromLibrary('player');
+        drawCardFromLibrary('ai');
+    }
+    
+    // Initialize game state
+    gameState.player.life = 20;
+    gameState.ai.life = 20;
+    gameState.turn = 1;
+    gameState.currentPlayer = 'player';
+    gameState.phase = 'beginning';
+    gameState.gameStarted = true;
+    
+    // Hide setup, show game
+    document.getElementById('gameSetup').style.display = 'none';
+    document.getElementById('gameBoard').style.display = 'flex';
+    
+    // Update UI
+    updateUI();
+    addLog('Game started! You go first.');
+    addLog('Draw your opening hand of 7 cards.');
+    
     // Offer mulligan
     offerMulligan('player');
 }
@@ -446,7 +509,7 @@ function createBasicCard(name, type, cmc, text, power, toughness) {
         name: name,
         type: type,
         cmc: cmc,
-        mana: cmc,
+        manaCost: `{${cmc}}`,
         text: text,
         power: power,
         toughness: toughness,
@@ -521,12 +584,12 @@ function startPlayerTurn() {
         card.sickness = false;
     });
     
-    // Calculate available mana from untapped lands
-    gameState.player.mana = calculateAvailableMana('player');
-    
-    // Draw card (skip on first turn)
-    if (gameState.turn > 1) {
-        drawCardFromLibrary('player');
+// Calculate available mana from untapped lands
+gameState.player.mana = calculateAvailableMana('player');
+
+// Draw card (skip first turn for player going first)
+if (gameState.turn > 1) {
+    drawCardFromLibrary('player');
     }
     
     addLog(`--- Turn ${gameState.turn}: Your Turn ---`);
@@ -954,23 +1017,26 @@ function showCardAbilitiesMenu(card, player) {
         menu += `${index + 1}. ${ability.name} (Cost: ${cost} mana)\n`;
         menu += `   ${ability.effect.text}\n\n`;
     });
+}
+
+// Resolve spell effects
+function resolveSpell(card, player) {
+    const opponent = player === 'player' ? 'ai' : 'player';
     
-    const choice = prompt(menu + '\nEnter ability number (or cancel):');
-    
-    if (choice) {
-        const abilityIndex = parseInt(choice) - 1;
-        const allAbilities = cardAbilitiesSystem.getCardAbilities(card);
-        const activatedIndex = allAbilities.findIndex(a => a === activatedAbilities[abilityIndex]);
-        
-        const result = cardAbilitiesSystem.activateAbility(card, activatedIndex, player, gameState);
-        
-        if (result.success) {
-            addLog(result.message);
-            updateUI();
-        } else {
-            alert(result.message);
-        }
+    // Basic spell effects
+    if (card.name.includes('Lightning Bolt')) {
+        gameState[opponent].life -= 3;
+        addLog(`${card.name} deals 3 damage to ${opponent === 'player' ? 'you' : 'AI'}!`);
+    } else if (card.name.includes('Shock')) {
+        gameState[opponent].life -= 2;
+        addLog(`${card.name} deals 2 damage to ${opponent === 'player' ? 'you' : 'AI'}!`);
+    } else if (card.name.includes('Giant Growth')) {
+        addLog(`${card.name} buffs a creature!`);
+        // In full implementation, would target a creature
     }
+    
+    // Check for game over
+    checkGameOver();
 }
 
 // Check if game is over
