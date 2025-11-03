@@ -307,69 +307,6 @@ function startGame() {
     addLog('Game started! You go first.');
     addLog('Draw your opening hand of 7 cards.');
     
-    // Start player's turn
-    startPlayerTurn();
-}
-
-function startGame() {
-    // Get selected deck
-    const selectedDeck = document.querySelector('.deck-option.selected');
-    if (!selectedDeck) {
-        alert('Please select a deck!');
-        return;
-    }
-    
-    const deckName = selectedDeck.dataset.deckName;
-    
-    // Get difficulty
-    const difficulty = document.querySelector('input[name="difficulty"]:checked').value;
-    gameState.difficulty = difficulty;
-    
-    // Load player's deck
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    const userId = currentUser ? currentUser.id : 'guest';
-    const decks = JSON.parse(localStorage.getItem('mtgDecks')) || {};
-    const userDecks = decks[userId] || [];
-    const playerDeck = userDecks.find(d => d.name === deckName);
-    
-    if (!playerDeck || !playerDeck.cards || playerDeck.cards.length === 0) {
-        alert('Invalid deck selected!');
-        return;
-    }
-    
-    // Expand deck cards (convert counts to individual cards)
-    gameState.player.library = expandDeck(playerDeck.cards);
-    
-    // Generate AI deck
-    gameState.ai.library = generateAIDeck(difficulty);
-    
-    // Shuffle decks
-    shuffleDeck(gameState.player.library);
-    shuffleDeck(gameState.ai.library);
-    
-    // Draw opening hands
-    for (let i = 0; i < 7; i++) {
-        drawCardFromLibrary('player');
-        drawCardFromLibrary('ai');
-    }
-    
-    // Initialize game state
-    gameState.player.life = 20;
-    gameState.ai.life = 20;
-    gameState.turn = 1;
-    gameState.currentPlayer = 'player';
-    gameState.phase = 'beginning';
-    gameState.gameStarted = true;
-    
-    // Hide setup, show game
-    document.getElementById('gameSetup').style.display = 'none';
-    document.getElementById('gameBoard').style.display = 'flex';
-    
-    // Update UI
-    updateUI();
-    addLog('Game started! You go first.');
-    addLog('Draw your opening hand of 7 cards.');
-    
     // Offer mulligan
     offerMulligan('player');
 }
