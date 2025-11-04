@@ -1,0 +1,588 @@
+/* ===================================
+   RESET & BASE STYLES
+   =================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Color Palette */
+    --primary-indigo: #1A132B;
+    --shadow-black: #0A070F;
+    --gold: #CBA135;
+    --arcane-blue: #2F6EED;
+    
+    /* Mana Colors */
+    --mana-white: #F0E6D2;
+    --mana-blue: #0E68AB;
+    --mana-black: #150B00;
+    --mana-red: #D3202A;
+    --mana-green: #00733E;
+    
+    /* Glows */
+    --glow-white: rgba(240, 230, 210, 0.6);
+    --glow-blue: rgba(47, 110, 237, 0.6);
+    --glow-black: rgba(100, 50, 150, 0.6);
+    --glow-red: rgba(211, 32, 42, 0.6);
+    --glow-green: rgba(0, 115, 62, 0.6);
+    --glow-gold: rgba(203, 161, 53, 0.6);
+    
+    /* Typography */
+    --font-header: 'Cinzel Decorative', serif;
+    --font-body: 'Inter', sans-serif;
+    
+    /* Spacing */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+}
+
+body {
+    font-family: var(--font-body);
+    background: var(--shadow-black);
+    color: var(--mana-white);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-x: hidden;
+}
+
+/* ===================================
+   ANIMATED BACKGROUND
+   =================================== */
+.background-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: linear-gradient(135deg, var(--primary-indigo) 0%, var(--shadow-black) 100%);
+    overflow: hidden;
+}
+
+.particles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.magic-circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--glow-gold), transparent 70%);
+    opacity: 0.1;
+    animation: pulse 4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.1; }
+    50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.2; }
+}
+
+/* ===================================
+   SIGNUP CONTAINER
+   =================================== */
+.signup-container {
+    width: 100%;
+    max-width: 500px;
+    padding: var(--spacing-md);
+    animation: fadeInUp 0.8s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.signup-card {
+    background: rgba(26, 19, 43, 0.9);
+    backdrop-filter: blur(20px);
+    border: 2px solid rgba(203, 161, 53, 0.3);
+    border-radius: 20px;
+    padding: var(--spacing-lg);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    position: relative;
+    overflow: hidden;
+}
+
+.signup-card::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, var(--gold), var(--arcane-blue), var(--gold));
+    border-radius: 20px;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.signup-card:hover::before {
+    opacity: 0.3;
+}
+
+/* ===================================
+   HEADER
+   =================================== */
+.signup-header {
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+.logo {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    font-family: var(--font-header);
+    font-size: 1.5rem;
+    color: var(--gold);
+    margin-bottom: var(--spacing-sm);
+}
+
+.logo-icon {
+    font-size: 2rem;
+    animation: rotate 10s linear infinite;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.signup-title {
+    font-family: var(--font-header);
+    font-size: 2rem;
+    color: var(--gold);
+    margin-bottom: var(--spacing-xs);
+    text-shadow: 0 0 20px var(--glow-gold);
+}
+
+.signup-subtitle {
+    color: rgba(240, 230, 210, 0.7);
+    font-size: 1rem;
+}
+
+/* ===================================
+   FORM STYLES
+   =================================== */
+.signup-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.form-label {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    font-weight: 600;
+    color: var(--mana-white);
+    font-size: 0.95rem;
+}
+
+.label-icon {
+    font-size: 1.2rem;
+}
+
+.form-input {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    background: rgba(10, 7, 15, 0.6);
+    border: 2px solid rgba(203, 161, 53, 0.3);
+    border-radius: 8px;
+    color: var(--mana-white);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--gold);
+    box-shadow: 0 0 20px var(--glow-gold);
+    background: rgba(10, 7, 15, 0.8);
+}
+
+.form-input::placeholder {
+    color: rgba(240, 230, 210, 0.4);
+}
+
+.input-message {
+    font-size: 0.85rem;
+    min-height: 1.2rem;
+    padding-left: var(--spacing-xs);
+}
+
+.input-message.error {
+    color: var(--mana-red);
+}
+
+.input-message.success {
+    color: var(--mana-green);
+}
+
+/* Password Container */
+.password-container {
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+}
+
+.toggle-password:hover {
+    opacity: 1;
+}
+
+/* Password Strength */
+.password-strength {
+    height: 4px;
+    background: rgba(10, 7, 15, 0.6);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-top: var(--spacing-xs);
+}
+
+.strength-bar {
+    height: 100%;
+    width: 0;
+    transition: all 0.3s ease;
+    border-radius: 2px;
+}
+
+.strength-bar.weak {
+    width: 33%;
+    background: var(--mana-red);
+}
+
+.strength-bar.medium {
+    width: 66%;
+    background: #CBA135;
+}
+
+.strength-bar.strong {
+    width: 100%;
+    background: var(--mana-green);
+}
+
+/* ===================================
+   MANA SELECTOR
+   =================================== */
+.mana-selector {
+    display: flex;
+    gap: var(--spacing-xs);
+    flex-wrap: wrap;
+}
+
+.mana-option {
+    flex: 1;
+    min-width: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.75rem 0.5rem;
+    background: rgba(10, 7, 15, 0.6);
+    border: 2px solid rgba(203, 161, 53, 0.3);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.mana-option input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.mana-symbol {
+    font-size: 2rem;
+    transition: transform 0.3s ease;
+}
+
+.mana-label {
+    font-size: 0.85rem;
+    color: rgba(240, 230, 210, 0.7);
+    font-weight: 600;
+}
+
+.mana-option:hover {
+    transform: translateY(-3px);
+}
+
+.mana-option:hover .mana-symbol {
+    transform: scale(1.2);
+}
+
+/* Mana Color States */
+.mana-option[data-color="white"] input:checked ~ .mana-symbol,
+.mana-option[data-color="white"]:has(input:checked) {
+    border-color: var(--mana-white);
+    box-shadow: 0 0 20px var(--glow-white);
+}
+
+.mana-option[data-color="blue"] input:checked ~ .mana-symbol,
+.mana-option[data-color="blue"]:has(input:checked) {
+    border-color: var(--mana-blue);
+    box-shadow: 0 0 20px var(--glow-blue);
+}
+
+.mana-option[data-color="black"] input:checked ~ .mana-symbol,
+.mana-option[data-color="black"]:has(input:checked) {
+    border-color: #9D4EDD;
+    box-shadow: 0 0 20px var(--glow-black);
+}
+
+.mana-option[data-color="red"] input:checked ~ .mana-symbol,
+.mana-option[data-color="red"]:has(input:checked) {
+    border-color: var(--mana-red);
+    box-shadow: 0 0 20px var(--glow-red);
+}
+
+.mana-option[data-color="green"] input:checked ~ .mana-symbol,
+.mana-option[data-color="green"]:has(input:checked) {
+    border-color: var(--mana-green);
+    box-shadow: 0 0 20px var(--glow-green);
+}
+
+/* ===================================
+   CHECKBOX
+   =================================== */
+.checkbox-group {
+    margin-top: var(--spacing-xs);
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.checkbox-label input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.checkbox-custom {
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    border: 2px solid rgba(203, 161, 53, 0.5);
+    border-radius: 4px;
+    background: rgba(10, 7, 15, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.checkbox-label input:checked + .checkbox-custom {
+    background: var(--gold);
+    border-color: var(--gold);
+}
+
+.checkbox-label input:checked + .checkbox-custom::after {
+    content: '✓';
+    color: var(--shadow-black);
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+.checkbox-text {
+    color: rgba(240, 230, 210, 0.8);
+    line-height: 1.4;
+}
+
+/* ===================================
+   SUBMIT BUTTON
+   =================================== */
+.btn-submit {
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(135deg, var(--arcane-blue), var(--gold));
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-xs);
+    position: relative;
+    overflow: hidden;
+    margin-top: var(--spacing-sm);
+    transition: all 0.3s ease;
+}
+
+.btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px var(--glow-gold);
+}
+
+.btn-submit:active {
+    transform: translateY(0);
+}
+
+.btn-submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.btn-glow {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    to { left: 100%; }
+}
+
+.btn-icon {
+    font-size: 1.3rem;
+}
+
+/* ===================================
+   ERROR MESSAGE
+   =================================== */
+.error-message {
+    padding: var(--spacing-sm);
+    background: rgba(211, 32, 42, 0.2);
+    border: 1px solid var(--mana-red);
+    border-radius: 8px;
+    color: var(--mana-red);
+    font-size: 0.9rem;
+    text-align: center;
+    display: none;
+}
+
+.error-message.show {
+    display: block;
+    animation: shake 0.5s ease;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    75% { transform: translateX(10px); }
+}
+
+/* ===================================
+   FOOTER
+   =================================== */
+.signup-footer {
+    margin-top: var(--spacing-lg);
+    padding-top: var(--spacing-md);
+    border-top: 1px solid rgba(203, 161, 53, 0.2);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.footer-text {
+    color: rgba(240, 230, 210, 0.7);
+    font-size: 0.95rem;
+}
+
+.link {
+    color: var(--gold);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+.link:hover {
+    color: var(--arcane-blue);
+    text-shadow: 0 0 10px var(--glow-blue);
+}
+
+.link-primary {
+    color: var(--arcane-blue);
+}
+
+.link-primary:hover {
+    color: var(--gold);
+    text-shadow: 0 0 10px var(--glow-gold);
+}
+
+.link-back {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    font-size: 0.9rem;
+}
+
+/* ===================================
+   RESPONSIVE DESIGN
+   =================================== */
+@media (max-width: 480px) {
+    .signup-container {
+        padding: var(--spacing-sm);
+    }
+    
+    .signup-card {
+        padding: var(--spacing-md);
+    }
+    
+    .signup-title {
+        font-size: 1.5rem;
+    }
+    
+    .mana-selector {
+        gap: 0.5rem;
+    }
+    
+    .mana-option {
+        min-width: 70px;
+        padding: 0.5rem 0.25rem;
+    }
+    
+    .mana-symbol {
+        font-size: 1.5rem;
+    }
+}

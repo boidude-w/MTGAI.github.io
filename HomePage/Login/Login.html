@@ -3,47 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MTG AI - Login</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Login - Arcane Arena</title>
+    <link rel="stylesheet" href="Login.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Inter:wght@300;400;600&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <header class="header">
-            <h1 class="title">Welcome Back</h1>
-            <p class="subtitle">Login to Continue Your Journey</p>
-        </header>
-
-        <main class="main-content">
-            <div class="auth-container">
-                <form id="loginForm" class="auth-form">
-                    <div class="form-group">
-                        <label for="username">Username or Email</label>
-                        <input type="text" id="username" name="username" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" id="password" name="password" required>
-                    </div>
-
-                    <div id="errorMessage" class="error-message"></div>
-                    <div id="successMessage" class="success-message"></div>
-
-                    <button type="submit" class="btn btn-primary">Login</button>
-                </form>
-
-                <div class="auth-links">
-                    <p>Don't have an account? <a href="../Signup/Signup.html">Sign up here</a></p>
-                    <p><a href="../HP.html">Back to Home</a></p>
-                </div>
-            </div>
-        </main>
-
-        <footer class="footer">
-            <p>&copy; 2024 MTG AI | Not affiliated with Wizards of the Coast</p>
-        </footer>
+    <!-- Animated Background -->
+    <div class="background-container">
+        <div class="particles" id="particles"></div>
+        <div class="magic-circle"></div>
     </div>
 
-    <script src="script.js"></script>
+    <!-- Login Container -->
+    <div class="login-container">
+        <div class="login-card">
+            <!-- Logo & Header -->
+            <div class="login-header">
+                <div class="logo">
+                    <span class="logo-icon">✦</span>
+                    <span class="logo-text">Arcane Arena</span>
+                </div>
+                <h1 class="login-title">Welcome Back, Planeswalker</h1>
+                <p class="login-subtitle">Enter your realm credentials</p>
+            </div>
+
+            <!-- Success Message (if redirected from signup) -->
+            <div class="success-message" id="successMessage">
+                <span class="success-icon">✓</span>
+                <span class="success-text">Account created successfully! Please login.</span>
+            </div>
+
+            <!-- Login Form -->
+            <form class="login-form" id="loginForm">
+                <!-- Username/Email -->
+                <div class="form-group">
+                    <label for="identifier" class="form-label">
+                        <span class="label-icon">👤</span>
+                        Username or Email
+                    </label>
+                    <input 
+                        type="text" 
+                        id="identifier" 
+                        name="identifier" 
+                        class="form-input" 
+                        placeholder="Enter your username or email"
+                        required
+                        autocomplete="username"
+                    >
+                    <span class="input-message" id="identifierMessage"></span>
+                </div>
+
+                <!-- Password -->
+                <div class="form-group">
+                    <label for="password" class="form-label">
+                        <span class="label-icon">🔒</span>
+                        Password
+                    </label>
+                    <div class="password-container">
+                        <input 
+                            type="password" 
+                            id="password" 
+                            name="password" 
+                            class="form-input" 
+                            placeholder="Enter your password"
+                            required
+                            autocomplete="current-password"
+                        >
+                        <button type="button" class="toggle-password" id="togglePassword">
+                            <span class="eye-icon">👁</span>
+                        </button>
+                    </div>
+                    <span class="input-message" id="passwordMessage"></span>
+                </div>
+
+                <!-- Remember Me & Forgot Password -->
+                <div class="form-options">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="remember" name="remember">
+                        <span class="checkbox-custom"></span>
+                        <span class="checkbox-text">Remember me</span>
+                    </label>
+                    <a href="#" class="link link-forgot">Forgot password?</a>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn-submit">
+                    <span class="btn-icon">⚡</span>
+                    <span class="btn-text">Enter Arena</span>
+                    <span class="btn-glow"></span>
+                </button>
+
+                <!-- Error Message -->
+                <div class="error-message" id="errorMessage"></div>
+            </form>
+
+            <!-- Divider -->
+            <div class="divider">
+                <span class="divider-line"></span>
+                <span class="divider-text">OR</span>
+                <span class="divider-line"></span>
+            </div>
+
+            <!-- Guest Login -->
+            <button class="btn btn-guest" id="guestLogin">
+                <span class="btn-icon">👤</span>
+                <span class="btn-text">Continue as Guest</span>
+            </button>
+
+            <!-- Footer Links -->
+            <div class="login-footer">
+                <p class="footer-text">
+                    New planeswalker? 
+                    <a href="../Signup/Signup.html" class="link link-primary">Create an account</a>
+                </p>
+                <a href="../HP.html" class="link link-back">
+                    <span>← Back to Home</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Demo Credentials Card -->
+        <div class="demo-card">
+            <div class="demo-icon">💡</div>
+            <h3 class="demo-title">Demo Credentials</h3>
+            <p class="demo-text">Try these credentials to explore:</p>
+            <div class="demo-credentials">
+                <div class="demo-item">
+                    <span class="demo-label">Username:</span>
+                    <code class="demo-value">demo_user</code>
+                </div>
+                <div class="demo-item">
+                    <span class="demo-label">Password:</span>
+                    <code class="demo-value">Demo1234!</code>
+                </div>
+            </div>
+            <button class="btn-demo-fill" id="fillDemo">
+                <span>Use Demo Credentials</span>
+            </button>
+        </div>
+    </div>
+
+    <script src="Login.js"></script>
 </body>
 </html>

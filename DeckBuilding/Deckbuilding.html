@@ -3,114 +3,352 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MTG AI - Deck Builder</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Deck Builder - Arcane Arena</title>
+    <link rel="stylesheet" href="Deckbuilder.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Inter:wght@300;400;600&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <header class="header">
-            <h1 class="title">Deck Builder</h1>
-            <p class="subtitle">Create Your Perfect Deck</p>
-            <a href="../HomePage/HP.html" class="btn btn-back">← Back to Home</a>
-        </header>
+    <!-- Animated Background -->
+    <div class="background-container">
+        <div class="particles" id="particles"></div>
+    </div>
 
-        <main class="main-content">
-            <div class="deck-builder-layout">
-                <!-- Left Panel: Card Search -->
-                <div class="card-search-panel">
-                    <h2>Card Collection</h2>
-                    
-                    <div class="search-filters">
-                        <input type="text" id="cardSearch" placeholder="Search cards..." class="search-input">
-                        
-                        <select id="colorFilter" class="filter-select">
-                            <option value="">All Colors</option>
-                            <option value="White">White</option>
-                            <option value="Blue">Blue</option>
-                            <option value="Black">Black</option>
-                            <option value="Red">Red</option>
-                            <option value="Green">Green</option>
-                            <option value="Colorless">Colorless</option>
-                        </select>
-                        
-                        <select id="typeFilter" class="filter-select">
-                            <option value="">All Types</option>
-                            <option value="Creature">Creature</option>
-                            <option value="Instant">Instant</option>
-                            <option value="Sorcery">Sorcery</option>
-                            <option value="Enchantment">Enchantment</option>
-                            <option value="Artifact">Artifact</option>
-                            <option value="Planeswalker">Planeswalker</option>
-                            <option value="Land">Land</option>
-                        </select>
-                        
-                        <select id="manaFilter" class="filter-select">
-                            <option value="">All Mana Costs</option>
-                            <option value="0">0</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6+">6+</option>
-                        </select>
-                    </div>
-                    
-                    <div class="card-list" id="cardList">
-                        <!-- Cards will be dynamically added here -->
+    <!-- Navigation -->
+    <nav class="nav-bar">
+        <div class="nav-content">
+            <div class="logo">
+                <span class="logo-icon">✦</span>
+                <span class="logo-text">Arcane Arena</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../HomePage/HP.html" class="nav-link">Home</a></li>
+                <li><a href="Deckbuilding.html" class="nav-link active">Deck Builder</a></li>
+                <li><a href="../Main/Main.html" class="nav-link">Battle</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="btn btn-secondary" id="viewDecksBtn">
+                    <span class="btn-icon">📚</span>
+                    My Decks
+                    <span class="deck-count-badge">0</span>
+                </button>
+                <button class="btn btn-secondary" id="newDeckBtn">
+                    <span class="btn-icon">➕</span>
+                    New Deck
+                </button>
+                <button class="btn btn-secondary" id="saveDeckBtn">
+                    <span class="btn-icon">💾</span>
+                    Save
+                </button>
+                <button class="btn btn-primary" id="exportDeckBtn">
+                    <span class="btn-icon">📤</span>
+                    Export
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="deckbuilder-container">
+        <!-- Sidebar - Card Search -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2 class="sidebar-title">
+                    <span class="title-icon">🔍</span>
+                    Card Search
+                </h2>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="search-section">
+                <div class="search-bar">
+                    <input 
+                        type="text" 
+                        id="cardSearch" 
+                        class="search-input" 
+                        placeholder="Search cards..."
+                    >
+                    <button class="search-btn" id="searchBtn">
+                        <span>🔎</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Filters -->
+            <div class="filters-section">
+                <h3 class="filters-title">Filters</h3>
+                
+                <!-- Color Filter -->
+                <div class="filter-group">
+                    <label class="filter-label">Colors</label>
+                    <div class="color-filters">
+                        <label class="color-filter" data-color="W">
+                            <input type="checkbox" value="W" class="color-checkbox">
+                            <span class="color-symbol white">☀</span>
+                        </label>
+                        <label class="color-filter" data-color="U">
+                            <input type="checkbox" value="U" class="color-checkbox">
+                            <span class="color-symbol blue">💧</span>
+                        </label>
+                        <label class="color-filter" data-color="B">
+                            <input type="checkbox" value="B" class="color-checkbox">
+                            <span class="color-symbol black">💀</span>
+                        </label>
+                        <label class="color-filter" data-color="R">
+                            <input type="checkbox" value="R" class="color-checkbox">
+                            <span class="color-symbol red">🔥</span>
+                        </label>
+                        <label class="color-filter" data-color="G">
+                            <input type="checkbox" value="G" class="color-checkbox">
+                            <span class="color-symbol green">🌿</span>
+                        </label>
+                        <label class="color-filter" data-color="C">
+                            <input type="checkbox" value="C" class="color-checkbox">
+                            <span class="color-symbol colorless">◇</span>
+                        </label>
                     </div>
                 </div>
 
-                <!-- Right Panel: Current Deck -->
-                <div class="deck-panel">
-                    <div class="deck-header">
-                        <h2>Current Deck</h2>
-                        <div class="deck-stats">
-                            <span id="deckCount">0</span> / 60 cards
+                <!-- Type Filter -->
+                <div class="filter-group">
+                    <label class="filter-label">Card Type</label>
+                    <select id="typeFilter" class="filter-select">
+                        <option value="">All Types</option>
+                        <option value="creature">Creature</option>
+                        <option value="instant">Instant</option>
+                        <option value="sorcery">Sorcery</option>
+                        <option value="enchantment">Enchantment</option>
+                        <option value="artifact">Artifact</option>
+                        <option value="planeswalker">Planeswalker</option>
+                        <option value="land">Land</option>
+                    </select>
+                </div>
+
+                <!-- Mana Cost Filter -->
+                <div class="filter-group">
+                    <label class="filter-label">Mana Value</label>
+                    <div class="mana-cost-filter">
+                        <input type="number" id="minCost" class="mana-input" placeholder="Min" min="0">
+                        <span>-</span>
+                        <input type="number" id="maxCost" class="mana-input" placeholder="Max" min="0">
+                    </div>
+                </div>
+
+                <!-- Rarity Filter -->
+                <div class="filter-group">
+                    <label class="filter-label">Rarity</label>
+                    <select id="rarityFilter" class="filter-select">
+                        <option value="">All Rarities</option>
+                        <option value="common">Common</option>
+                        <option value="uncommon">Uncommon</option>
+                        <option value="rare">Rare</option>
+                        <option value="mythic">Mythic</option>
+                    </select>
+                </div>
+
+                <button class="btn btn-filter" id="applyFiltersBtn">
+                    <span class="btn-icon">✨</span>
+                    Apply Filters
+                </button>
+                <button class="btn btn-clear" id="clearFiltersBtn">
+                    <span class="btn-icon">🔄</span>
+                    Clear
+                </button>
+            </div>
+
+            <!-- Card Results -->
+            <div class="results-section">
+                <div class="results-header">
+                    <h3 class="results-title">Results</h3>
+                    <span class="results-count" id="resultsCount">0 cards</span>
+                </div>
+                <div class="results-list" id="resultsList">
+                    <div class="loading-message">
+                        <span class="loading-icon">⏳</span>
+                        <p>Search for cards to get started</p>
+                    </div>
+                </div>
+                
+                <!-- Pagination -->
+                <div class="pagination-container" id="paginationContainer"></div>
+            </div>
+        </aside>
+
+        <!-- Main Content - Deck Builder -->
+        <main class="main-content">
+            <!-- Deck Header -->
+            <div class="deck-header">
+                <div class="deck-info">
+                    <input 
+                        type="text" 
+                        id="deckName" 
+                        class="deck-name-input" 
+                        placeholder="My Awesome Deck"
+                        value="Untitled Deck"
+                    >
+                    <div class="deck-stats">
+                        <div class="stat-item">
+                            <span class="stat-label">Cards:</span>
+                            <span class="stat-value" id="deckCount">0</span>
+                            <span class="stat-target">/ 60</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Avg. CMC:</span>
+                            <span class="stat-value" id="avgCmc">0.0</span>
                         </div>
                     </div>
-                    
-                    <div class="deck-actions">
-                        <input type="text" id="deckName" placeholder="Deck Name" class="deck-name-input">
-                        <button class="btn btn-analyze" id="analyzeBtn">🤖 AI Analysis</button>
-                        <button class="btn btn-analyze" id="buildDeckBtn">🚀 Build Deck with AI</button>
-                        <button class="btn btn-save" id="saveDeckBtn">💾 Save Deck</button>
-                        <button class="btn btn-load" id="loadDeckBtn">📂 Load Deck</button>
-                        <button class="btn btn-clear" id="clearDeckBtn">🗑️ Clear Deck</button>
+                </div>
+                <div class="deck-actions">
+                    <button class="btn btn-secondary" id="clearDeckBtn">
+                        <span class="btn-icon">🗑</span>
+                        Clear Deck
+                    </button>
+                    <button class="btn btn-primary" id="getRecommendationsBtn">
+                        <span class="btn-icon">🤖</span>
+                        Get AI Suggestions
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mana Curve -->
+            <div class="mana-curve-section">
+                <h3 class="section-title">Mana Curve</h3>
+                <div class="mana-curve" id="manaCurve">
+                    <div class="curve-bar" data-cmc="0">
+                        <div class="bar-fill" style="height: 0%"></div>
+                        <span class="bar-label">0</span>
+                        <span class="bar-count">0</span>
                     </div>
-                    
-                    <div class="deck-breakdown">
-                        <div class="breakdown-item">
-                            <span>Creatures:</span>
-                            <span id="creatureCount">0</span>
-                        </div>
-                        <div class="breakdown-item">
-                            <span>Spells:</span>
-                            <span id="spellCount">0</span>
-                        </div>
-                        <div class="breakdown-item">
-                            <span>Lands:</span>
-                            <span id="landCount">0</span>
-                        </div>
-                        <div class="breakdown-item">
-                            <span>Other:</span>
-                            <span id="otherCount">0</span>
+                    <div class="curve-bar" data-cmc="1">
+                        <div class="bar-fill" style="height: 0%"></div>
+                        <span class="bar-label">1</span>
+                        <span class="bar-count">0</span>
+                    </div>
+                    <div class="curve-bar" data-cmc="2">
+                        <div class="bar-fill" style="height: 0%"></div>
+                        <span class="bar-label">2</span>
+                        <span class="bar-count">0</span>
+                    </div>
+                    <div class="curve-bar" data-cmc="3">
+                        <div class="bar-fill" style="height: 0%"></div>
+                        <span class="bar-label">3</span>
+                        <span class="bar-count">0</span>
+                    </div>
+                    <div class="curve-bar" data-cmc="4">
+                        <div class="bar-fill" style="height: 0%"></div>
+                        <span class="bar-label">4</span>
+                        <span class="bar-count">0</span>
+                    </div>
+                    <div class="curve-bar" data-cmc="5">
+                        <div class="bar-fill" style="height: 0%"></div>
+                        <span class="bar-label">5</span>
+                        <span class="bar-count">0</span>
+                    </div>
+                    <div class="curve-bar" data-cmc="6">
+                        <div class="bar-fill" style="height: 0%"></div>
+                        <span class="bar-label">6+</span>
+                        <span class="bar-count">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Color Distribution -->
+            <div class="color-distribution-section">
+                <h3 class="section-title">Color Distribution</h3>
+                <div class="color-distribution" id="colorDistribution">
+                    <div class="color-bar" data-color="W">
+                        <div class="color-fill white" style="width: 0%"></div>
+                        <span class="color-label">☀ White</span>
+                        <span class="color-count">0</span>
+                    </div>
+                    <div class="color-bar" data-color="U">
+                        <div class="color-fill blue" style="width: 0%"></div>
+                        <span class="color-label">💧 Blue</span>
+                        <span class="color-count">0</span>
+                    </div>
+                    <div class="color-bar" data-color="B">
+                        <div class="color-fill black" style="width: 0%"></div>
+                        <span class="color-label">💀 Black</span>
+                        <span class="color-count">0</span>
+                    </div>
+                    <div class="color-bar" data-color="R">
+                        <div class="color-fill red" style="width: 0%"></div>
+                        <span class="color-label">🔥 Red</span>
+                        <span class="color-count">0</span>
+                    </div>
+                    <div class="color-bar" data-color="G">
+                        <div class="color-fill green" style="width: 0%"></div>
+                        <span class="color-label">🌿 Green</span>
+                        <span class="color-count">0</span>
+                    </div>
+                    <div class="color-bar" data-color="C">
+                        <div class="color-fill colorless" style="width: 0%"></div>
+                        <span class="color-label">◇ Colorless</span>
+                        <span class="color-count">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Deck List -->
+            <div class="decklist-section">
+                <h3 class="section-title">Deck List</h3>
+                <div class="decklist-tabs">
+                    <button class="tab-btn active" data-view="visual">Visual</button>
+                    <button class="tab-btn" data-view="text">Text</button>
+                </div>
+                <div class="decklist-content">
+                    <div class="decklist-visual active" id="decklistVisual">
+                        <div class="empty-deck">
+                            <span class="empty-icon">🃏</span>
+                            <p>Your deck is empty. Add cards from the search results!</p>
                         </div>
                     </div>
-                    
-                    <div class="current-deck" id="currentDeck">
-                        <!-- Deck cards will be displayed here -->
-                    </div>
-                    
-                    <div class="saved-decks">
-                        <h3>Saved Decks</h3>
-                        <div id="savedDecksList"></div>
+                    <div class="decklist-text" id="decklistText">
+                        <textarea 
+                            class="decklist-textarea" 
+                            placeholder="Your deck list will appear here..."
+                            readonly
+                        ></textarea>
                     </div>
                 </div>
             </div>
         </main>
     </div>
 
-    <script src="script.js"></script>
+    <!-- Card Preview Modal -->
+    <div class="modal" id="cardPreviewModal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <button class="modal-close" id="closeModal">✕</button>
+            <div class="card-preview-container" id="cardPreviewContainer">
+                <!-- Card details will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Deck Library Modal -->
+    <div class="modal" id="deckLibraryModal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content deck-library-content">
+            <button class="modal-close" id="closeDeckLibrary">✕</button>
+            <div class="deck-library-header">
+                <h2 class="deck-library-title">
+                    <span class="title-icon">📚</span>
+                    My Deck Library
+                </h2>
+                <p class="deck-library-subtitle">Load, manage, or duplicate your saved decks</p>
+            </div>
+            <div class="saved-decks-list" id="savedDecksList">
+                <!-- Saved decks will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="Deckbuilding.js"></script>
+    <script src="DeckRecommender.js"></script>
 </body>
 </html>

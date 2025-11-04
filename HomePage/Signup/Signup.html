@@ -3,57 +3,183 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MTG AI - Sign Up</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Sign Up - Arcane Arena</title>
+    <link rel="stylesheet" href="Signup.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Inter:wght@300;400;600&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <header class="header">
-            <h1 class="title">Create Your Account</h1>
-            <p class="subtitle">Join the MTG AI Community</p>
-        </header>
-
-        <main class="main-content">
-            <div class="auth-container">
-                <form id="signupForm" class="auth-form">
-                    <div class="form-group">
-                        <label for="username">Username</label>
-                        <input type="text" id="username" name="username" required minlength="3">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" id="password" name="password" required minlength="6">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="confirmPassword">Confirm Password</label>
-                        <input type="password" id="confirmPassword" name="confirmPassword" required minlength="6">
-                    </div>
-
-                    <div id="errorMessage" class="error-message"></div>
-                    <div id="successMessage" class="success-message"></div>
-
-                    <button type="submit" class="btn btn-primary">Sign Up</button>
-                </form>
-
-                <div class="auth-links">
-                    <p>Already have an account? <a href="../Login/Login.html">Login here</a></p>
-                    <p><a href="../HP.html">Back to Home</a></p>
-                </div>
-            </div>
-        </main>
-
-        <footer class="footer">
-            <p>&copy; 2024 MTG AI | Not affiliated with Wizards of the Coast</p>
-        </footer>
+    <!-- Animated Background -->
+    <div class="background-container">
+        <div class="particles" id="particles"></div>
+        <div class="magic-circle"></div>
     </div>
 
-    <script src="script.js"></script>
+    <!-- Signup Container -->
+    <div class="signup-container">
+        <div class="signup-card">
+            <!-- Logo & Header -->
+            <div class="signup-header">
+                <div class="logo">
+                    <span class="logo-icon">✦</span>
+                    <span class="logo-text">Arcane Arena</span>
+                </div>
+                <h1 class="signup-title">Begin Your Journey</h1>
+                <p class="signup-subtitle">Create your planeswalker account</p>
+            </div>
+
+            <!-- Signup Form -->
+            <form class="signup-form" id="signupForm">
+                <!-- Username -->
+                <div class="form-group">
+                    <label for="username" class="form-label">
+                        <span class="label-icon">👤</span>
+                        Planeswalker Name
+                    </label>
+                    <input 
+                        type="text" 
+                        id="username" 
+                        name="username" 
+                        class="form-input" 
+                        placeholder="Enter your planeswalker name"
+                        required
+                        minlength="3"
+                        maxlength="20"
+                    >
+                    <span class="input-message" id="usernameMessage"></span>
+                </div>
+
+                <!-- Email -->
+                <div class="form-group">
+                    <label for="email" class="form-label">
+                        <span class="label-icon">✉</span>
+                        Email Address
+                    </label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        class="form-input" 
+                        placeholder="Enter your email"
+                        required
+                    >
+                    <span class="input-message" id="emailMessage"></span>
+                </div>
+
+                <!-- Password -->
+                <div class="form-group">
+                    <label for="password" class="form-label">
+                        <span class="label-icon">🔒</span>
+                        Password
+                    </label>
+                    <div class="password-container">
+                        <input 
+                            type="password" 
+                            id="password" 
+                            name="password" 
+                            class="form-input" 
+                            placeholder="Create a strong password"
+                            required
+                            minlength="8"
+                        >
+                        <button type="button" class="toggle-password" id="togglePassword">
+                            <span class="eye-icon">👁</span>
+                        </button>
+                    </div>
+                    <span class="input-message" id="passwordMessage"></span>
+                    <div class="password-strength" id="passwordStrength">
+                        <div class="strength-bar"></div>
+                    </div>
+                </div>
+
+                <!-- Confirm Password -->
+                <div class="form-group">
+                    <label for="confirmPassword" class="form-label">
+                        <span class="label-icon">🔐</span>
+                        Confirm Password
+                    </label>
+                    <input 
+                        type="password" 
+                        id="confirmPassword" 
+                        name="confirmPassword" 
+                        class="form-input" 
+                        placeholder="Confirm your password"
+                        required
+                    >
+                    <span class="input-message" id="confirmPasswordMessage"></span>
+                </div>
+
+                <!-- Favorite Color -->
+                <div class="form-group">
+                    <label class="form-label">
+                        <span class="label-icon">✨</span>
+                        Choose Your Mana Affinity
+                    </label>
+                    <div class="mana-selector">
+                        <label class="mana-option" data-color="white">
+                            <input type="radio" name="mana" value="white" required>
+                            <span class="mana-symbol">☀</span>
+                            <span class="mana-label">White</span>
+                        </label>
+                        <label class="mana-option" data-color="blue">
+                            <input type="radio" name="mana" value="blue">
+                            <span class="mana-symbol">💧</span>
+                            <span class="mana-label">Blue</span>
+                        </label>
+                        <label class="mana-option" data-color="black">
+                            <input type="radio" name="mana" value="black">
+                            <span class="mana-symbol">💀</span>
+                            <span class="mana-label">Black</span>
+                        </label>
+                        <label class="mana-option" data-color="red">
+                            <input type="radio" name="mana" value="red">
+                            <span class="mana-symbol">🔥</span>
+                            <span class="mana-label">Red</span>
+                        </label>
+                        <label class="mana-option" data-color="green">
+                            <input type="radio" name="mana" value="green">
+                            <span class="mana-symbol">🌿</span>
+                            <span class="mana-label">Green</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Terms & Conditions -->
+                <div class="form-group checkbox-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="terms" name="terms" required>
+                        <span class="checkbox-custom"></span>
+                        <span class="checkbox-text">
+                            I agree to the <a href="#" class="link">Terms of Service</a> and <a href="#" class="link">Privacy Policy</a>
+                        </span>
+                    </label>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn-submit">
+                    <span class="btn-icon">⚡</span>
+                    <span class="btn-text">Create Account</span>
+                    <span class="btn-glow"></span>
+                </button>
+
+                <!-- Error Message -->
+                <div class="error-message" id="errorMessage"></div>
+            </form>
+
+            <!-- Footer Links -->
+            <div class="signup-footer">
+                <p class="footer-text">
+                    Already a planeswalker? 
+                    <a href="../Login/Login.html" class="link link-primary">Login here</a>
+                </p>
+                <a href="../HP.html" class="link link-back">
+                    <span>← Back to Home</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script src="Signup.js"></script>
 </body>
 </html>
